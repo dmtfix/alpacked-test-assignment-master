@@ -4,7 +4,7 @@ on:
   push:
     branches:  
       -master
-      -'workb'
+      -workb
 
 env:
   CONTENTFUL_SPACE_ID: ${{ secrets.CONTENTFUL_SPACE_ID }}
