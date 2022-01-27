@@ -4,7 +4,7 @@ on:
   push:
     branches:  
       - master
-      - workb
+      - workb # del at the end
 
 env:
   CONTENTFUL_SPACE_ID: ${{ secrets.CONTENTFUL_SPACE_ID }}
@@ -13,7 +13,7 @@ env:
   AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
   AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
   CDK_DEFAULT_ACCOUNT : ${{ secrets.CDK_DEFAULT_ACCOUNT }}
-  CDK_DEFAULT_REGION: 'eu-west-3'
+  CDK_DEFAULT_REGION: ${{ secrets.CDK_DEFAULT_REGION }}
 
 jobs:
   build-job:
@@ -23,7 +23,7 @@ jobs:
     - uses: actions/setup-node@v2
       name: 'setup node'
       with:
-        node-version: '16'
+        node-version: '14'
 
     - name: 'build site'
       run : |
