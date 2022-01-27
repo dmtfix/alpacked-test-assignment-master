@@ -33,7 +33,7 @@ jobs:
     - name: 'Deploy site'
       working-directory: ./aws-iac
       run : |
-        npm i npm@6.14.13
+        npm i npm
         npm run build
         npm i cdk
         cdk deploy 
