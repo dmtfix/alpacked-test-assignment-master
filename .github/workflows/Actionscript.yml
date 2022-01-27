@@ -36,4 +36,5 @@ jobs:
         npm i npm
         npm run build
         npm i cdk -g
+        cdk bootstrap
         cdk deploy 
