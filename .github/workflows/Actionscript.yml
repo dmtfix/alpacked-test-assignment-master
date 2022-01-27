@@ -35,5 +35,5 @@ jobs:
       run : |
         npm i npm
         npm run build
-        npm i cdk
+        npm i cdk -g
         cdk deploy 
