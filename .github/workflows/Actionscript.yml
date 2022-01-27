@@ -2,7 +2,9 @@ name: ScriptActions
 
 on:
   push:
-    branches:  master 
+    branches:  
+      -master
+      -'workb'
 
 env:
   CONTENTFUL_SPACE_ID: ${{ secrets.CONTENTFUL_SPACE_ID }}
