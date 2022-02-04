@@ -1,16 +1,30 @@
-import { Stack, StackProps } from 'aws-cdk-lib';
+import {
+  Stack, StackProps, aws_s3, aws_s3_deployment, aws_cloudfront,
+  aws_cloudfront_origins
+} from 'aws-cdk-lib';
 import { Construct } from 'constructs';
-// import * as sqs from 'aws-cdk-lib/aws-sqs';
 
 export class AwsCdkStack extends Stack {
   constructor(scope: Construct, id: string, props?: StackProps) {
     super(scope, id, props);
 
-    // The code that defines your stack goes here
+    // Set up a bucket
+    const websiteBucket = new aws_s3.Bucket(this, 'NewBucket', {
+      publicReadAccess: false,
+      websiteIndexDocument: 'index.html'
+    });
 
-    // example resource
-    // const queue = new sqs.Queue(this, 'AwsCdkQueue', {
-    //   visibilityTimeout: cdk.Duration.seconds(300)
-    // });
+    // Loading up to bucket
+    new aws_s3_deployment.BucketDeployment(this, 'DeployWebsite', {
+      sources: [aws_s3_deployment.Source.asset('../public')],
+      destinationBucket: websiteBucket,
+    });
+
+    //
+    new aws_cloudfront.Distribution(this, 'myDist', {
+      defaultBehavior: { origin: new aws_cloudfront_origins.S3Origin(websiteBucket) },
+    });
+
+
   }
 }
