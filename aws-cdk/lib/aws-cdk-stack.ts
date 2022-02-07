@@ -9,7 +9,7 @@ export class AwsCdkStack extends Stack {
     super(scope, id, props);
 
     // Set up a bucket
-    const websiteBucket = new aws_s3.Bucket(this, 'NewBucket', {
+    const websiteBucket = new aws_s3.Bucket(this, 'Bucketforalp', {
       publicReadAccess: false,
       websiteIndexDocument: 'index.html'
     });
