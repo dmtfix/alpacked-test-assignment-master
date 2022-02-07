@@ -1,10 +1,10 @@
 name: ScriptActions
 
 on:
-  push: 
-    branches: 
-      -master
-      -aws-iac
+  push:
+    branches:  
+      - master
+      - aws-iac
 
 env:
   CONTENTFUL_SPACE_ID: ${{ secrets.CONTENTFUL_SPACE_ID }}
