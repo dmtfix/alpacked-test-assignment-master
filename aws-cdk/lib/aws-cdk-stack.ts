@@ -20,7 +20,7 @@ export class AwsCdkStack extends Stack {
       destinationBucket: websiteBucket,
     });
 
-    // Allows CloudFront to reach the bucket?,
+    // Allows CloudFront to reach the bucket?
     new aws_cloudfront.OriginAccessIdentity(this, 'myoriginaccessidentity', {
       comment: 'Allows CloudFront to reach the bucket',
     });
