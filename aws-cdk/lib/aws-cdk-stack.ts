@@ -9,24 +9,24 @@ export class AwsCdkStack extends Stack {
     super(scope, id, props);
 
     // Set up a bucket
-    const websiteBucket = new aws_s3.Bucket(this, 'Bucketforalp', {
+    const websiteBucket = new aws_s3.Bucket(this, 'hellonewbucketforalpacked', {
       publicReadAccess: false,
       websiteIndexDocument: 'index.html'
     });
 
     // Loading up to bucket
-    new aws_s3_deployment.BucketDeployment(this, 'DeployWebsite', {
+    new aws_s3_deployment.BucketDeployment(this, 'deploywebsite', {
       sources: [aws_s3_deployment.Source.asset('../public')],
       destinationBucket: websiteBucket,
     });
 
     // Allows CloudFront to reach the bucket
-    new aws_cloudfront.OriginAccessIdentity(this, 'MyOriginAccessIdentity', {
+    new aws_cloudfront.OriginAccessIdentity(this, 'myoriginaccessidentity', {
       comment: 'Allows CloudFront to reach the bucket',
     });
 
     // Create Cloudfront
-    new aws_cloudfront.Distribution(this, 'myDist', {
+    new aws_cloudfront.Distribution(this, 'mydist', {
       defaultBehavior: { origin: new aws_cloudfront_origins.S3Origin(websiteBucket) },
     });
 
