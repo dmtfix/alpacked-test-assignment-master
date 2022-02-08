@@ -10,7 +10,7 @@ export class AwsCdkStack extends Stack {
 
     // Set up a bucket
     const websiteBucket = new aws_s3.Bucket(this, 'hellonewbucketforalpacked', {
-      publicReadAccess: false,
+      publicReadAccess: true,
       websiteIndexDocument: 'index.html'
     });
 
