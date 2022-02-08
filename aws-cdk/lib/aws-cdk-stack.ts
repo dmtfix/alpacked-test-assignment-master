@@ -10,7 +10,6 @@ export class AwsCdkStack extends Stack {
 
     // Set up a bucket
     const websiteBucket = new aws_s3.Bucket(this, 'hellonewbucketforalpacked', {
-      publicReadAccess: true,
       websiteIndexDocument: 'index.html'
     });
 
@@ -20,7 +19,7 @@ export class AwsCdkStack extends Stack {
       destinationBucket: websiteBucket,
     });
 
-    // Allows CloudFront to reach the bucket?
+    // Allows CloudFront to reach the bucket
     new aws_cloudfront.OriginAccessIdentity(this, 'myoriginaccessidentity', {
       comment: 'Allows CloudFront to reach the bucket',
     });
