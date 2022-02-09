@@ -25,7 +25,6 @@ export class AwsCdkStack extends Stack {
     const oai = new aws_cloudfront.OriginAccessIdentity(this, 'myoriginaccessidentity', {
       comment: 'Allows CloudFront to reach the bucket',
     });
-    websiteBucket.grantRead(oai);
 
     // Create Cloudfront
     new CloudFrontWebDistribution(this, 'mydist', {
