@@ -1,7 +1,8 @@
 import {
   Stack, StackProps, aws_s3, aws_s3_deployment, aws_cloudfront,
-  aws_cloudfront_origins
 } from 'aws-cdk-lib';
+import { CloudFrontWebDistribution } from 'aws-cdk-lib/aws-cloudfront';
+import { BlockPublicAccess } from 'aws-cdk-lib/aws-s3';
 import { Construct } from 'constructs';
 
 export class AwsCdkStack extends Stack {
@@ -10,7 +11,8 @@ export class AwsCdkStack extends Stack {
 
     // Set up a bucket
     const websiteBucket = new aws_s3.Bucket(this, 'hellonewbucketforalpacked', {
-      websiteIndexDocument: 'index.html'
+      websiteIndexDocument: 'index.html',
+      blockPublicAccess: BlockPublicAccess.BLOCK_ALL
     });
 
     // Loading up to bucket
@@ -20,15 +22,24 @@ export class AwsCdkStack extends Stack {
     });
 
     // Allows CloudFront to reach the bucket?
-    new aws_cloudfront.OriginAccessIdentity(this, 'myoriginaccessidentity', {
+    const oai = new aws_cloudfront.OriginAccessIdentity(this, 'myoriginaccessidentity', {
       comment: 'Allows CloudFront to reach the bucket',
     });
+    websiteBucket.grantRead(oai);
 
     // Create Cloudfront
-    new aws_cloudfront.Distribution(this, 'mydist', {
-      defaultBehavior: { origin: new aws_cloudfront_origins.S3Origin(websiteBucket) },
+    new CloudFrontWebDistribution(this, 'mydist', {
+      originConfigs: [
+        {
+          s3OriginSource: {
+            s3BucketSource: websiteBucket,
+            originAccessIdentity: oai
+          },
+          behaviors: [
+            { isDefaultBehavior: true }
+          ]
+        }
+      ]
     });
-
-
   }
 }
